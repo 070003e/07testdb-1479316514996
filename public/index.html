@@ -1,26 +1,28 @@
-<!DOCTYPE html>
 <html>
+ <head>
+ <title>Node.js Ajax Cloudant Sample</title>
+ <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+ <script type="text/javascript" src="js/ui_item.js"></script>
+ </head>
 
-  <head>
-    <title>NodeJS Starter Application</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="stylesheets/style.css">
-  </head>
+ <body>
+ <table id="dataTable" border="1">
+ <thead>
+ <tr>
+ <th>時間</th><th>項目</th>
+ </tr>
+ </thead>
+ <tbody id='tableItems'></tbody>
+ </table><br>
 
-  <body>
-    <table>
-      <tr>
-        <td style= "width:30%;">
-          <img class = "newappIcon" src="images/newapp-icon.png">
-        </td>
-        <td>
-          <h1 id="message">Hello World!</h1>
-          <p class='description'></p> Thanks for creating a <span class = "blue">NodeJS Starter Application</span>.
-        </td>
-      </tr>
-    </table>
-  </body>
-
+ <div id="form">
+ <br>
+ <button value="全件表示" id="getAll"> 全件表示 </button>
+ <button value="全件削除" id="removeAll"> 全件削除 </button>
+ <br><br>
+ <span>項目名: </span><span><input type="text" id="item1"></span>
+ <button value="追加" id="add"> 追加 </button>
+ <br>
+ </div>
+ </body>
 </html>
