@@ -57,7 +57,7 @@ var options = {
 var db = new (cradle.Connection)(host, port, options).database('employeedb');
 
 
-//「検索」ボタンの id=getEmployee, ui_item.jsの url:'/getEmployee'でcall
+//「検索」ボタンの id=getEmployee, jsの url:'/getEmployee'でcall
 app.post('/getEmployee', function(req, res){
  returnTable(res);
 });
