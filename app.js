@@ -54,8 +54,26 @@ var options = {
 };
 
 // データベース接続
-var db = new (cradle.Connection)(host, port, options).database('itemsdb');
+var db = new (cradle.Connection)(host, port, options).database('employeedb');
 
+
+//「検索」ボタンの id=getEmployee, ui_item.jsの url:'/getEmployee'でcall
+app.post('/getEmployee', function(req, res){
+ returnTable(res);
+});
+
+var returnTable = function(res) {
+ // 検索を、作成したview名 items_view にて実行
+ db.view('items/items_view', function (err, rows) {
+ if (!err) {
+ rows.forEach(function (id, row) {
+ console.log("key: %s, row: %s", id, JSON.stringify(row));
+ });
+ } else { console.log("app.js returnTable error: " + err); }
+
+ res.send(rows);
+ });
+};
 // 「追加」ボタンの id=add, ui_item.jsの url:'/add'でcall
 app.post('/add', function(req, res){
  var date = new Date();
@@ -68,42 +86,6 @@ app.post('/add', function(req, res){
 
  res.send(req.body);
 });
-
-//「全件削除」ボタンの id=removeAll, ui_item.jsの url:'/removeAll'でcall
-app.post('/removeAll', function(req, res){
-
- // 全件検索を、作成したview名 items_view にて実行
- db.view('items/items_view', function (err, rows) {
- if (!err) {
- rows.forEach(function (id, row) {
- db.remove(id);
- console.log("removed key is: %s", id);
- });
- } else { console.log("app.js db.remove error: " + err); }
-
- });
-
- res.send({});
-});
-
-
-//「全件表示」ボタンの id=getAll, ui_item.jsの url:'/getAll'でcall
-app.post('/getAll', function(req, res){
- returnTable(res);
-});
-
-var returnTable = function(res) {
- // 全件検索を、作成したview名 items_view にて実行
- db.view('items/items_view', function (err, rows) {
- if (!err) {
- rows.forEach(function (id, row) {
- console.log("key: %s, row: %s", id, JSON.stringify(row));
- });
- } else { console.log("app.js returnTable error: " + err); }
-
- res.send(rows);
- });
-};
 
 //環境変数にポート番号が無ければ、port=3000 設定
 var port = (process.env.VCAP_APP_PORT || 3000);
